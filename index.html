@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Top Cryptos News — Live Crypto Dashboard</title>
+  <meta name="description" content="Live crypto prices, candlestick charts and latest crypto news. Free, static, and ready to host."/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .news-card img { width: 120px; height: 80px; object-fit: cover; border-radius: 6px; }
+    .truncate-2 { 
+      display: -webkit-box; 
+      -webkit-line-clamp: 2; 
+      -webkit-box-orient: vertical; 
+      overflow: hidden; 
+      line-clamp: 2; 
+      box-orient: vertical;
+    }
+    #daily-update { max-height: 360px; overflow:auto; }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="max-w-7xl mx-auto p-4">
+    <header class="flex items-center justify-between mb-4">
+      <div>
+        <h1 class="text-2xl font-bold">TopCryptosNews</h1>
+      </div>
+      <div class="text-right text-sm text-gray-400">
+        <div id="last-updated">—</div>
+      </div>
+    </header>
+
+    <main class="space-y-4">
+      <section class="grid grid-cols-1 lg:grid-cols-6 gap-4">
+        <div class="lg:col-span-1 bg-gray-800 p-4 rounded-2xl shadow">
+          <h2 class="text-lg font-semibold mb-2">Daily Update</h2>
+          <div id="daily-update" class="prose prose-invert text-sm">
+            <p>US Fed signals <b>rate cuts imminent</b> which means Cryptos prices will increase and overall <b>crypto market</b> sentiment looks <b>bullish</b>.<br>
+               <br>
+                It can also lead to price increase in crypto related stock Microstrategy (MSTR).<br>
+                <br>
+                Try the predictor tool to analyze candlestick patterns and predict what it indicates and the reason.<br>             
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-3 bg-gray-800 p-4 rounded-2xl shadow flex flex-col">
+          <div class="flex items-center gap-4 mb-3">
+            <div>
+              <label class="text-xs text-gray-400">Symbol</label>
+              <input id="symbolInput" class="bg-gray-900 text-white px-3 py-2 rounded w-44" placeholder="BTCUSDT" />
+            </div>
+            <div>
+              <label class="text-xs text-gray-400">Quick Picks</label>
+              <div class="flex gap-2 flex-wrap">
+                <button class="quick-btn px-3 py-2 bg-gray-700 rounded" data-symbol="BTCUSDT">BTC</button>
+                <button class="quick-btn px-3 py-2 bg-gray-700 rounded" data-symbol="ETHUSDT">ETH</button>
+                <button class="quick-btn px-3 py-2 bg-gray-700 rounded" data-symbol="BNBUSDT">BNB</button>
+              </div>
+            </div>
+            <div class="ml-auto text-right">
+              <div class="text-xs text-gray-400">Live price</div>
+              <div id="price" class="text-2xl font-semibold">—</div>
+              <div id="change" class="text-sm text-gray-400">—</div>
+            </div>
+          </div>
+          <div id="tradingview-widget" class="rounded flex-grow" style="background:#0f1724; padding:6px;"></div>
+        </div>
+
+        <div class="lg:col-span-2 bg-gray-800 p-4 rounded-2xl shadow flex flex-col">
+          <h2 class="text-lg font-semibold mb-3">Predictor</h2>
+          <div class="mb-3">
+            <label for="predictorSymbol" class="block text-xs text-gray-400 mb-1">Symbol</label>
+            <input id="predictorSymbol" class="bg-gray-900 text-white px-3 py-2 rounded w-full" placeholder="BTCUSDT" />
+          </div>
+          <div class="mb-3">
+            <label for="predictorQuick" class="block text-xs text-gray-400 mb-1">Quick Picks</label>
+            <div class="flex gap-2 flex-wrap">
+              <button class="predictor-quick-btn px-3 py-2 bg-gray-700 rounded" data-symbol="BTCUSDT">BTC</button>
+              <button class="predictor-quick-btn px-3 py-2 bg-gray-700 rounded" data-symbol="ETHUSDT">ETH</button>
+              <button class="predictor-quick-btn px-3 py-2 bg-gray-700 rounded" data-symbol="BNBUSDT">BNB</button>
+              <button class="predictor-quick-btn px-3 py-2 bg-gray-700 rounded" data-symbol="SOLUSDT">SOL</button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="intervalSelect" class="block text-xs text-gray-400 mb-1">Interval</label>
+            <select id="intervalSelect" class="bg-gray-900 text-white px-3 py-2 rounded w-full">
+              <option value="1m">1 Minute</option>
+              <option value="3m">3 Minutes</option>
+              <option value="5m" selected>5 Minutes</option>
+              <option value="15m">15 Minutes</option>
+              <option value="30m">30 Minutes</option>
+              <option value="1h">1 Hour</option>
+              <option value="2h">2 Hours</option>
+              <option value="4h">4 Hours</option>
+              <option value="6h">6 Hours</option>
+              <option value="8h">8 Hours</option>
+              <option value="12h">12 Hours</option>
+              <option value="1d">1 Day</option>
+              <option value="3d">3 Days</option>
+              <option value="1w">1 Week</option>
+              <option value="1M">1 Month</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="candleCountSelect" class="block text-xs text-gray-400 mb-1">Candles to Analyze</label>
+            <select id="candleCountSelect" class="bg-gray-900 text-white px-3 py-2 rounded w-full">
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+          <button id="analyzeBtn" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white font-semibold mb-3">Analyze</button>
+          <div id="predictionResult" class="flex-grow overflow-auto text-sm prose prose-invert"></div>
+
+          <section id="candleDiagramSection" class="mt-auto">
+            <svg id="candleDiagram" width="0%" height="0" viewBox="0 0 0 0"></svg>
+            <p class="text-gray-400 text-xs italic mt-2">
+              Note: This tool works by analysing simple patterns only and it cannot always produce correct result. Do not take decisions based on this.
+            </p>
+          </section>
+        </div>
+      </section>
+
+      <section class="bg-gray-800 p-4 rounded-2xl shadow">
+        <h2 class="text-lg font-semibold mb-2">Latest Crypto News</h2>
+        <div id="newsList" class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-96 overflow-auto">
+          <p class="text-gray-400 text-sm col-span-full">Loading news…</p>
+        </div>
+        <div class="mt-3 text-xs text-gray-500">Sources: CoinDesk, Bitcoin, CoinTelegraph</div>
+      </section>
+    </main>
+
+    <footer style="background:#111; color:#bbb; text-align:center; padding:20px; font-size:14px; margin-top:30px;">
+      <p>
+        Market data provided by 
+        <a href="https://www.binance.com" target="_blank" style="color:#4da6ff;">Binance API</a>.  
+        Charts powered by 
+        <a href="https://www.tradingview.com/" target="_blank" style="color:#4da6ff;">TradingView</a>.  
+        News aggregated from 
+        <a href="https://www.coingecko.com/en/news" target="_blank" style="color:#4da6ff;">CoinGecko</a>, 
+        <a href="https://news.bitcoin.com/" target="_blank" style="color:#4da6ff;">Bitcoin.com</a>, and 
+        <a href="https://www.coindesk.com/" target="_blank" style="color:#4da6ff;">CoinDesk</a>.
+      </p>
+      <p>
+        This website is for informational purposes only and does not constitute financial advice.  
+        Please consult a qualified advisor before making investment decisions.
+      </p>
+      <p>© 2025 <a href="https://topcryptosnews.com" style="color:#0f9dff; text-decoration:none;">topcryptosnews.com</a>. All rights reserved.</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
