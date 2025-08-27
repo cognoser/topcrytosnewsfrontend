@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const candleCount = parseInt(candleCountSelect.value, 10) || 10;
         $qs('#predictionResult').innerHTML = '<p>Analyzing pattern...</p>';
         try {
-            const response = await fetch('https://cryptopredictorbackend.onrender.com', {
+            const response = await fetch('https://cryptopredictorbackend.onrender.com/api/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ symbol: sym, interval, candleCount })
